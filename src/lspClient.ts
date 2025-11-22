@@ -105,9 +105,9 @@ export class LspClient {
 
     try {
         console.error("Sending initialize request...");
-        const result = await this.connection.sendRequest("initialize", params) as InitializeResult;
+        const result = await this.connection.sendRequest(InitializeRequest.type.method, params) as InitializeResult;
         console.error("Initialize request successful.");
-        await this.connection.sendNotification("initialized", {});
+        await this.connection.sendNotification(InitializedNotification.type.method, {});
         this.isInitialized = true;
         return result;
     } catch (e: any) {
@@ -126,7 +126,7 @@ export class LspClient {
       position: { line, character },
     };
 
-    return this.connection.sendRequest("textDocument/definition", params) as Promise<Location | Location[] | null>;
+    return this.connection.sendRequest(DefinitionRequest.type.method, params) as Promise<Location | Location[] | null>;
   }
 
   async getReferences(filePath: string, line: number, character: number): Promise<Location[] | null> {
@@ -140,7 +140,7 @@ export class LspClient {
       context: { includeDeclaration: true },
     };
 
-    return this.connection.sendRequest("textDocument/references", params) as Promise<Location[] | null>;
+    return this.connection.sendRequest(ReferencesRequest.type.method, params) as Promise<Location[] | null>;
   }
 
   async getHover(filePath: string, line: number, character: number): Promise<Hover | null> {
@@ -153,7 +153,7 @@ export class LspClient {
       position: { line, character },
     };
 
-    return this.connection.sendRequest("textDocument/hover", params) as Promise<Hover | null>;
+    return this.connection.sendRequest(HoverRequest.type.method, params) as Promise<Hover | null>;
   }
 
   async getDocumentSymbols(filePath: string): Promise<SymbolInformation[] | DocumentSymbol[] | null> {
@@ -161,7 +161,7 @@ export class LspClient {
     await this.didOpen(filePath);
     const uri = `file://${path.resolve(this.rootPath, filePath)}`;
 
-    return this.connection.sendRequest("textDocument/documentSymbol", {
+    return this.connection.sendRequest(DocumentSymbolRequest.type.method, {
       textDocument: { uri },
     }) as Promise<SymbolInformation[] | DocumentSymbol[] | null>;
   }
@@ -173,7 +173,7 @@ export class LspClient {
 
       try {
           const content = await fs.readFile(fullPath, 'utf-8');
-          await this.connection.sendNotification("textDocument/didOpen", {
+          await this.connection.sendNotification(DidOpenTextDocumentNotification.type.method, {
               textDocument: {
                   uri,
                   languageId: this.getLanguageId(filePath),

@@ -5,7 +5,6 @@ This is a Model Context Protocol (MCP) server that provides semantic code analys
 ## Features
 
 - **Semantic Navigation**: Go to definition, find references, hover info.
-- **Structure Analysis**: Get document symbols (outline).
 - **Relationship Analysis**: Check if function A calls function B (using LSP references).
 
 ## Architecture
@@ -16,7 +15,6 @@ This server acts as a bridge between MCP and LSP. It spawns a `typescript-langua
 
 - `get_definition`: Find where a symbol is defined.
 - `get_references`: Find all usages of a symbol.
-- `get_document_symbols`: Get the outline of a file.
 - `search_in_file`: Search for a string in a file to find its line and character position.
 - `check_function_call`: Analyze if one function calls another.
 

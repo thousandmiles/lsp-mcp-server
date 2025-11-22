@@ -22,19 +22,26 @@ This server acts as a bridge between MCP and LSP. It spawns a `typescript-langua
 
 ## Usage
 
-### Quick Setup
+### Installation
 
-Run the setup script to build the project and generate the configuration:
+1. Clone the repository:
 
-```bash
-./setup.sh
-```
+   ```bash
+   git clone git@github.com:thousandmiles/lsp-mcp-server.git
+   cd lsp-mcp-server
+   ```
 
-Copy the output JSON and paste it into your MCP client configuration file.
+2. Run the setup script to build the project and generate the configuration:
+
+   ```bash
+   ./setup.sh
+   ```
+
+3. Copy the output JSON and paste it into your MCP client configuration file.
 
 ### Manual Setup
 
-1. Build the project:
+1. Install dependencies and build:
 
    ```bash
    npm install

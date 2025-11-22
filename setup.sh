@@ -7,6 +7,17 @@ NC='\033[0m' # No Color
 
 echo -e "${GREEN}=== Setting up Semantic Code MCP Server ===${NC}\n"
 
+# 0. Check prerequisites
+if ! command -v node &> /dev/null; then
+    echo -e "${RED}Error: Node.js is not installed. Please install Node.js (v16+) first.${NC}"
+    exit 1
+fi
+
+if ! command -v npm &> /dev/null; then
+    echo -e "${RED}Error: npm is not installed. Please install npm first.${NC}"
+    exit 1
+fi
+
 # 1. Install dependencies
 if [ ! -d "node_modules" ]; then
     echo -e "${CYAN}> Installing dependencies...${NC}"
